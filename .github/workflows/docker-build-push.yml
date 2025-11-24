@@ -29,6 +29,10 @@ on:
         required: false
         type: boolean
         default: true
+    outputs:
+      image_ref:
+        description: 'The Docker image reference that was built'
+        value: ${{ jobs.build-and-push-docker.outputs.image_ref }}
 
   workflow_dispatch:
     inputs:
@@ -41,18 +45,6 @@ on:
         description: 'URL to call after the build is successful'
         required: false
         type: string
-
-  pull_request:
-    types:
-      - opened
-      - ready_for_review
-    paths:
-      - '.github/workflows/docker-build-push.yml'
-      - '.github/scripts/docker/docker-config.mjs'
-      - '.github/scripts/docker/docker-tags.mjs'
-      - 'docker/images/n8n/Dockerfile'
-      - 'docker/images/runners/Dockerfile'
-      - 'docker/images/runners/Dockerfile.distroless'
 
 jobs:
   determine-build-context:
