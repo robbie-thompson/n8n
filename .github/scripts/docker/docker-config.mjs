@@ -19,17 +19,19 @@ class BuildContext {
 		if (version && releaseType) {
 			context.version = version;
 			context.release_type = releaseType;
-			if (releaseType === 'branch') {
-				context.platforms = ['linux/amd64'];
-			} else {
-				context.push_to_docker = true;
-			}
+			context.push_to_docker = true;
 		} else {
 			switch (event) {
 				case 'schedule':
 					context.version = 'nightly';
 					context.release_type = 'nightly';
 					context.push_to_docker = true;
+					break;
+
+				case 'pull_request':
+					context.version = `pr-${pr}`;
+					context.release_type = 'dev';
+					context.push_to_ghcr = false;
 					break;
 
 				case 'workflow_dispatch':

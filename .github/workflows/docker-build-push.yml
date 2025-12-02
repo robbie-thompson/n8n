@@ -29,10 +29,6 @@ on:
         required: false
         type: boolean
         default: true
-    outputs:
-      image_ref:
-        description: 'The Docker image reference that was built'
-        value: ${{ jobs.build-and-push-docker.outputs.image_ref }}
 
   workflow_dispatch:
     inputs:

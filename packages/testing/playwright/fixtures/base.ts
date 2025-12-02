@@ -109,13 +109,8 @@ export const test = base.extend<
 			const container = await createN8NStack(containerConfig);
 			const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
-			// Allow container to fully warm up (JIT, connection pools, etc.) before running tests
-			// This helps prevent cascading flakiness after test retries that recreate the container
-			const warmupDelay = 2000;
-			await new Promise((resolve) => setTimeout(resolve, warmupDelay));
-
 			console.log(
-				`[${new Date().toISOString()}] Container created in ${duration}s (+${warmupDelay}ms warmup) - URL: ${container.baseUrl}`,
+				`[${new Date().toISOString()}] Container created in ${duration}s - URL: ${container.baseUrl}`,
 			);
 
 			await use(container);

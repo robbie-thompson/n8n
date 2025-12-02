@@ -52,6 +52,10 @@ on:
       N8N_ENCRYPTION_KEY:
         required: false
 
+concurrency:
+  group: e2e-${{ github.event.pull_request.number || github.ref }}-${{ inputs.test-command }}
+  cancel-in-progress: true
+
 env:
   PLAYWRIGHT_BROWSERS_PATH: packages/testing/playwright/ms-playwright-cache
   NODE_OPTIONS: --max-old-space-size=3072
