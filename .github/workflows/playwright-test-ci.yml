@@ -3,8 +3,12 @@ name: E2E Tests for CI
 on:
   workflow_call:
 
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  # Multi-main: HA setup with postgres + redis + caddy + 2 mains + 1 worker
+  # Multi-main: postgres + redis + caddy + 2 mains + 1 worker
   multi-main-ui:
     name: 'Multi-Main: UI'
     uses: ./.github/workflows/playwright-test-reusable.yml

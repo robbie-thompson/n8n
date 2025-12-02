@@ -123,8 +123,8 @@ jobs:
     with:
       ref: refs/pull/${{ github.event.pull_request.number }}/merge
 
-  e2e-test:
-    name: E2E Tests
+  e2e-checks:
+    name: E2E - Checks
     needs: [install-and-build, unit-test, typecheck, lint]
     if: |
       always() &&
